@@ -63,6 +63,18 @@ after_configuration do
   sprockets.append_path File.dirname(::React::Source.bundled_path_for('react.js'))
 end
 
+config = YAML.load ERB.new(File.read('parameter.yml')).result(binding)
+
+activate :deploy do |deploy|
+  deploy.method = :ftp
+  deploy.host = config['FTP_HOST']
+  deploy.user = config['FTP_USER']
+  deploy.password = config['FTP_PASSWORD']
+  deploy.path = config['path']
+  deploy.build_before = false # default: false
+end
+
+
 # Build-specific configuration
 configure :build do
   ignore 'images/*.psd'
