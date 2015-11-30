@@ -1,4 +1,7 @@
 @Comment = React.createClass(
+  mixins: [Backbone.React.Component.mixin]
+  destroy: -> 
+    @getModel().destroy()
   rawMarkup: ->
     converter = new (Showdown.converter) 
     rawMarkup = converter.makeHtml(@props.model.get('text'), sanitize: true)
@@ -12,7 +15,10 @@
       </header>
       <section className="post-content" dangerouslySetInnerHTML={this.rawMarkup()} /> 
       <footer className="post-meta">
-        {this.props.model.get('author')}
+        <p>
+          {this.props.model.get('author')}
+        </p>
+        <button onClick={this.destroy}>Delete</button>
       </footer>
     </article>`
 )
