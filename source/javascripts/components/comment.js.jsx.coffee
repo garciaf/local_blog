@@ -2,26 +2,14 @@
   mixins: [Backbone.React.Component.mixin]
   getInitialState: ->
     edit_mode: false
-    new_title: @getModel().get('title')
-    new_text: @getModel().get('text')
-    new_author: @getModel().get('author')
   handleToggle: (e) ->
     e.preventDefault()
     @setState edit_mode: !@state.edit_mode
-  handleTitleChange: (e) ->
-    e.preventDefault()
-    @setState new_title: e.target.value
-  handleAuthorChange: (e) ->
-    e.preventDefault()
-    @setState new_author: e.target.value
-  handleTextChange: (e) ->
-    e.preventDefault()
-    @setState new_text: e.target.value
   update: (e) ->
     @getModel().set(
-      title: @state.new_title.trim()
-      author: @state.new_author.trim()
-      text: @state.new_text
+      title: @refs.title.value.trim()
+      author: @refs.author.value.trim()
+      text: @refs.text.value.trim()
     )
     @getModel().save()
     @state.edit_mode = false
@@ -53,13 +41,13 @@
         <input
           type="text"
           defaultValue={this.props.model.get('title')}
-          onChange={this.handleTitleChange}
+          ref="title"
         />
       </header>
       <section className="post-content"> 
         <textarea 
           defaultValue={this.props.model.get('text')}
-          onChange={this.handleTextChange}
+          ref="text"
         />
       </section>
 
@@ -67,8 +55,8 @@
         <div>
           <input
             type="text"
+            ref="author"
             defaultValue={this.props.model.get('author')}
-            onChange={this.handleAuthorChange}
           />
         </div>
         <button onClick={this.handleToggle}>Back</button>
