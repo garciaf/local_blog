@@ -17,6 +17,6 @@
 
 
 $ ->
-  comments = new MyApp.Collections.Comments
-  comments.fetch().done ->
-    ReactDOM.render( MyApp.Views.CommentBox(collection: comments), document.getElementById('blog-page-wrapper'))
+  posts = new MyApp.Collections.Posts
+  posts.fetch().done ->
+    ReactDOM.render( MyApp.Views.Blog(collection: posts), document.getElementById('blog-page-wrapper'))

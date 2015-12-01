@@ -1,4 +1,4 @@
-@Comment = React.createClass(
+@Post = React.createClass(
   mixins: [Backbone.React.Component.mixin]
   getInitialState: ->
     edit_mode: false
@@ -15,18 +15,14 @@
     @state.edit_mode = false
   destroy: -> 
     @getModel().destroy()
-  rawMarkup: ->
-    converter = new (Showdown.converter) 
-    rawMarkup = converter.makeHtml(@props.model.get('text'), sanitize: true)
-    { __html: rawMarkup }
-  renderComment: ->
+  renderPost: ->
     `<article className="post">
       <header className="post-header">
         <h2 className="post-title">
           {this.props.model.get('title')}
         </h2>
       </header>
-      <section className="post-content" dangerouslySetInnerHTML={this.rawMarkup()} /> 
+      <section className="post-content" dangerouslySetInnerHTML={ {__html: this.props.model.htmlText()} } /> 
       <footer className="post-meta">
         <p>
           {this.props.model.get('author')}
@@ -35,7 +31,7 @@
         <button onClick={this.handleToggle}>Edit</button>
       </footer>
     </article>`
-  renderCommentEdit: ->
+  renderPostEdit: ->
     `<article className="post">
       <header className="post-header">
         <input
@@ -65,10 +61,10 @@
     </article>`
   render: ->
     if @state.edit_mode
-      @renderCommentEdit()
+      @renderPostEdit()
     else
-      @renderComment()
+      @renderPost()
     
 )
 
-MyApp.Views.Comment = React.createFactory(@Comment)
+MyApp.Views.Post = React.createFactory(@Post)
