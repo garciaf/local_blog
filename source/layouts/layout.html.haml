@@ -40,7 +40,10 @@
       %footer.site-footer.clearfix
         %section.copyright
           =link_to "the cook", "http://the-french-cook.com"
-          , 
+          ,
+          = link_to "the dev", "http://fabbook.fr"
+          ,
+          = link_to "the fighter", "http://fabfight.com" 
           and
           = link_to "the photographer", "http://fabphoto.fr"
           &copy;
@@ -48,11 +51,3 @@
     -# Javascripts
     = javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js'
     = javascript_include_tag 'application'
-    
-    - if build?
-      -# Google Analytics
-      :javascript
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
